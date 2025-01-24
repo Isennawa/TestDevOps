@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  mymvcapp:
+    image: mycontainerregistryton01.azurecr.io/mymvcapp:latest2 # Use your Azure Container Registry (ACR) image URL
+    build:
+      context: . # Context is the current directory
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # Map container port 80 to host port 8080
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production # Set the environment to Production
+      - DOTNET_RUNNING_IN_CONTAINER=true # Recommended for .NET apps in containers
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false # Enable globalization support
+    volumes:
+      - ./publish:/app # Optional, for dynamic updates in development
